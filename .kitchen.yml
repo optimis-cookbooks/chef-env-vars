@@ -1,0 +1,17 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-13.04
+
+suites:
+  - name: default
+    data_bags_path: 'test/integration/default/data_bags'
+    encrypted_data_bag_secret_key_path: 'test/integration/default/encrypted_data_bag_secret'
+    run_list:
+      - recipe[chef-env-vars::default]
+    attributes: { "vars": [{ "name": "API_KEY", "databag": "api_keys", "item": "production" }] }
