@@ -2,12 +2,6 @@ chef-env-vars Cookbook
 ======================
 A cookbook to help manage ENV variables using data bags.
 
-Requirements
-------------
-
-#### packages
-- `openssl` - chef-env-vars needs openssl to decrypt encrypted data bag items.
-
 Attributes
 ----------
 
@@ -22,39 +16,34 @@ Attributes
   <tr>
     <td><tt>['chef-env-vars']['vars']</tt></td>
     <td>Array</td>
-    <td>an array of ENV variables</td>
-    <td><tt>false</tt></td>
+    <td>an array of ENV variable names to fetch from the env vars databag item.</td>
+    <td><tt>nil</tt></td>
   </tr>
-  <tr>
-    <td><tt>['chef-env-vars']['vars']['name']</tt></td>
-    <td>String</td>
-    <td>the ENV variable name</td>
-    <td><tt>false</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['chef-env-vars']['vars']['databag']</tt></td>
-    <td>String</td>
-    <td>the data bag containing the ENV variable value</td>
-    <td><tt>false</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['chef-env-vars']['vars']['item']</tt></td>
-    <td>String</td>
-    <td>the data bag containing the ENV variable value</td>
-    <td><tt>false</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['chef-env-vars']['vars']['encrypted']</tt></td>
-    <td>Boolean</td>
-    <td>is the ENV variable value encrypted?</td>
-    <td><tt>true</tt></td>
-  </tr> 
 </table>
 
 Usage
 -----
+
 #### chef-env-vars::default
-Add a `data bag` and items for each ENV variable. Also, encrypt the data bag items if needed. Add the `vars` attribute to the node or role attributes and include `chef-env-vars` in your node's `run_list`.
+Add the ENV variables to the `env` `vars` data bag item. 
+
+  knife data bag create --secret-file /etc/chef/encrypted_data_bag_secret env vars
+
+#### databag example
+
+data_bags/env/vars.json
+
+```json
+  { "id": "vars", "API_KEY": "akjhsfjlkjlkjw535kjhkjhsd8" }
+```
+
+Include the `chef-env-vars` in your node's `run_list` and add the `vars` to the `node/role` attributes.
+
+#### node configuration example
+
+```json
+  { "name": "node-name", "vars": [ "API_KEY" ] }
+```
 
 Contributing
 ------------
