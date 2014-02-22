@@ -32,7 +32,13 @@ Attributes
     <td><tt>false</tt></td>
   </tr>
   <tr>
-    <td><tt>['chef-env-vars']['vars']['data_bag']</tt></td>
+    <td><tt>['chef-env-vars']['vars']['databag']</tt></td>
+    <td>String</td>
+    <td>the data bag containing the ENV variable value</td>
+    <td><tt>false</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['chef-env-vars']['vars']['item']</tt></td>
     <td>String</td>
     <td>the data bag containing the ENV variable value</td>
     <td><tt>false</tt></td>
@@ -48,16 +54,7 @@ Attributes
 Usage
 -----
 #### chef-env-vars::default
-Add a `data bag` and items for each ENV variable. Also, encrypt the data bag items if needed. Include `chef-env-vars` in your node's `run_list`:
-
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[chef-env-vars]"
-  ]
-}
-```
+Add a `data bag` and items for each ENV variable. Also, encrypt the data bag items if needed. Add the `vars` attribute to the node or role attributes and include `chef-env-vars` in your node's `run_list`.
 
 Contributing
 ------------
