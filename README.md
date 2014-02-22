@@ -1,23 +1,16 @@
 chef-env-vars Cookbook
 ======================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+A cookbook to help manage ENV variables using data bags.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
-e.g.
 #### packages
-- `toaster` - chef-env-vars needs toaster to brown your bagel.
+- `openssl` - chef-env-vars needs openssl to decrypt encrypted data bag items.
 
 Attributes
 ----------
-TODO: List your cookbook attributes here.
 
-e.g.
 #### chef-env-vars::default
 <table>
   <tr>
@@ -27,20 +20,35 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['chef-env-vars']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['chef-env-vars']['vars']</tt></td>
+    <td>Array</td>
+    <td>an array of ENV variables</td>
+    <td><tt>false</tt></td>
   </tr>
+  <tr>
+    <td><tt>['chef-env-vars']['vars']['name']</tt></td>
+    <td>String</td>
+    <td>the ENV variable name</td>
+    <td><tt>false</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['chef-env-vars']['vars']['data_bag']</tt></td>
+    <td>String</td>
+    <td>the data bag containing the ENV variable value</td>
+    <td><tt>false</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['chef-env-vars']['vars']['encrypted']</tt></td>
+    <td>Boolean</td>
+    <td>is the ENV variable value encrypted?</td>
+    <td><tt>true</tt></td>
+  </tr> 
 </table>
 
 Usage
 -----
 #### chef-env-vars::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `chef-env-vars` in your node's `run_list`:
+Add a `data bag` and items for each ENV variable. Also, encrypt the data bag items if needed. Include `chef-env-vars` in your node's `run_list`:
 
 ```json
 {
@@ -53,9 +61,6 @@ Just include `chef-env-vars` in your node's `run_list`:
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
 1. Fork the repository on Github
 2. Create a named feature branch (like `add_component_x`)
 3. Write your change
@@ -65,4 +70,4 @@ e.g.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Umang Chouhan
