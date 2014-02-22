@@ -7,18 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-file_content = node['vars'].collect do |variable|
-  databag = variable['databag']
-  item = variable['item']
-  name = variable['name']
-  encrypted = variable['encrypted'] == false ? false : true
-  provider = encrypted ? Chef::EncryptedDataBagItem : Chef::DataBagItem
-  bag = provider.load databag, item
-  value = bag[name]
-
-  "export #{name}=#{value}"
+unless node['vars']
+  Chef::Log.warn 'No ENV vars are configured'
+  return
 end
 
+file_content = node['vars'].collect do |variable|
+  "export #{variable}=#{Chef::EncryptedDataBagItem.load('env', 'vars')[variable][node.chef_environment]}"
+end.join('\n')
+
 file '/etc/profile.d/variables.sh' do
-  content file_content.join('\n')
+  content file_content
 end
