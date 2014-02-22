@@ -4,5 +4,5 @@ include Serverspec::Helper::Exec
 include Serverspec::Helper::DetectOS
 
 describe file('/etc/profile.d/variables.sh') do
-  it { should be_files }
+  it { should be_file }
 end
