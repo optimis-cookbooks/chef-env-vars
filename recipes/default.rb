@@ -7,14 +7,20 @@
 # All rights reserved - Do Not Redistribute
 #
 
-unless node['vars']
-  Chef::Log.warn 'No ENV vars are configured'
+begin
+  bag = Chef::EncryptedDataBagItem.load 'env', 'vars'
+rescue
+  Chef::Log.warn 'The env vars databag does not exist.'
   return
 end
 
-file_content = node['vars'].collect do |variable|
-  "export #{variable}=#{Chef::EncryptedDataBagItem.load('env', 'vars')[variable][node.chef_environment]}"
-end.join('\n')
+vars = bag.collect do |key, value|
+  { "#{key}" => value[node.chef_environment] } if value[node.chef_environment]
+end.compact
+
+Chef::Log.warn "No env vars configured for env #{node.chef_environment}." and return if vars.empty?
+
+file_content = vars.map { |var| "export #{var.keys.first}=#{var.values.first}" }.join('\n')
 
 file '/etc/profile.d/variables.sh' do
   content file_content

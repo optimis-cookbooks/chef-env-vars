@@ -1,0 +1,9 @@
+{
+  "id": "vars",
+  "PT_BILLING_API_V2_KEY": {
+    "encrypted_data": "gr8XqUaJUGmYbYLRtRP9dOOUNF7f84L89y/xuelou72hTvQbxKuI31w6mNHx\n1XisOf7k1PBHb2xWrpZh0/YzE8fRA7XKzPTYsrGypc4OGnF/NmBkl5zGS2Pd\nhKuBrSO4\n",
+    "iv": "ALy3iX/YlclHFSuuZ0ElFg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
