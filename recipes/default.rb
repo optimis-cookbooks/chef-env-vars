@@ -14,7 +14,7 @@ rescue
   return
 end
 
-vars = bag.collect do |key, value|
+vars = bag.to_hash.collect do |key, value|
   { "#{key}" => value[node.chef_environment] } if value[node.chef_environment]
 end.compact
 
